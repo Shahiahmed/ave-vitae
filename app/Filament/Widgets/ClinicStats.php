@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 
 class ClinicStats extends StatsOverviewWidget
 {
+    protected static bool $isLazy = false;
+
     public static function canView(): bool
     {
         return Auth::user()?->hasAnyRole([Role::Admin->value, Role::Operator->value]) ?? false;

@@ -12,6 +12,8 @@ class TodayAppointmentsStats extends StatsOverviewWidget
 {
     use InteractsWithPageTable;
 
+    protected static bool $isLazy = false;
+
     protected function getTablePage(): string
     {
         return TodayAppointments::class;
