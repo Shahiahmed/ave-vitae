@@ -46,6 +46,14 @@ php artisan view:cache
 
 Убедиться, что в `.env`: `APP_ENV=production`, `APP_DEBUG=false`, реальные креды БД. В проде тестовые пользователи не создаются (сидер заводит только `admin@clinic.kz`) — **сразу смените пароль администратора**.
 
+## Автодеплой
+
+Пуш в ветку `main` автоматически разворачивается на сервере через GitHub Actions
+(`.github/workflows/deploy.yml` → SSH → `deploy.sh`): `git reset --hard` →
+`composer install` → `migrate --force` → `filament:optimize` + кеши → права `www-data`.
+
+Требуются секреты репозитория: `SSH_HOST`, `SSH_USER`, `SSH_PORT`, `SSH_KEY`.
+
 ## Тесты
 
 ```bash
