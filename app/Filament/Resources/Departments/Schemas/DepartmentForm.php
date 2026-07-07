@@ -20,6 +20,9 @@ class DepartmentForm
                     ->label(__('clinic.department.name_kk'))
                     ->required()
                     ->maxLength(255),
+                TextInput::make('name_zh')
+                    ->label(__('clinic.department.name_zh'))
+                    ->maxLength(255),
                 Toggle::make('is_active')
                     ->label(__('clinic.department.is_active'))
                     ->default(true),

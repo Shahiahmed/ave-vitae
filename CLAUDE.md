@@ -38,7 +38,7 @@
 У пользователей с ролью doctor: `department_id` (nullable FK), `name_kk`, `name_zh` (nullable).
 
 ### departments
-- `id`, `name_ru`, `name_kk`, `is_active` (bool, default true), timestamps
+- `id`, `name_ru`, `name_kk`, `name_zh` (nullable), `is_active` (bool, default true), timestamps
 - Seeder: ЛОР, Проктология (+ возможность добавлять через админку)
 
 ### patients

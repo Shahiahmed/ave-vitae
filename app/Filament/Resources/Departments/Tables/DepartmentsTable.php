@@ -22,6 +22,10 @@ class DepartmentsTable
                 TextColumn::make('name_kk')
                     ->label(__('clinic.department.name_kk'))
                     ->searchable(),
+                TextColumn::make('name_zh')
+                    ->label(__('clinic.department.name_zh'))
+                    ->placeholder('—')
+                    ->searchable(),
                 IconColumn::make('is_active')
                     ->label(__('clinic.department.is_active'))
                     ->boolean(),

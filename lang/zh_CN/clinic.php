@@ -11,6 +11,7 @@ return [
         'plural' => '科室',
         'name_ru' => '名称（俄文）',
         'name_kk' => '名称（哈萨克文）',
+        'name_zh' => '名称（中文）',
         'is_active' => '启用',
     ],
 
