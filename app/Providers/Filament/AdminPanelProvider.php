@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Enums\Role;
+use App\Filament\Auth\Login;
 use App\Filament\Pages\Dashboard;
 use App\Filament\Pages\MyAppointments;
 use App\Filament\Pages\TodayAppointments;
@@ -33,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->brandName('Клиника')
-            ->login()
+            ->login(Login::class)
             ->homeUrl(fn (): string => match (true) {
                 Auth::user()?->hasRole(Role::Doctor->value) => MyAppointments::getUrl(),
                 Auth::user()?->hasRole(Role::Reception->value) => TodayAppointments::getUrl(),
