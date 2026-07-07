@@ -1,11 +1,11 @@
 @php
     $locales = [
-        'ru' => ['label' => 'Русский', 'short' => 'РУ'],
         'kk' => ['label' => 'Қазақша', 'short' => 'ҚАЗ'],
         'zh_CN' => ['label' => '中文', 'short' => '中文'],
+        'ru' => ['label' => 'Русский', 'short' => 'РУ'],
     ];
     $current = app()->getLocale();
-    $currentShort = $locales[$current]['short'] ?? 'РУ';
+    $currentShort = $locales[$current]['short'] ?? 'ҚАЗ';
 
     $flag = function (string $locale): string {
         return match ($locale) {
