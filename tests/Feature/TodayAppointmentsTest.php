@@ -23,6 +23,19 @@ it('forbids a doctor from the today page', function () {
         ->assertForbidden();
 });
 
+it('shows an appointment scheduled for today under the default date filter', function () {
+    $patient = \App\Models\Patient::factory()->create(['name_kk' => 'Бүгінгі Пациент']);
+    \App\Models\Appointment::factory()->create([
+        'patient_id' => $patient->id,
+        'scheduled_at' => today()->setTime(0, 0),
+    ]);
+
+    $this->actingAs(userWithRole(Role::Reception))
+        ->get(TodayAppointments::getUrl())
+        ->assertOk()
+        ->assertSee('Бүгінгі Пациент');
+});
+
 it('renders the today page with its stats widget for a full day of visits', function () {
     Appointment::factory()->create(['scheduled_at' => now()->setTime(9, 0), 'visit_status' => VisitStatus::Waiting]);
     Appointment::factory()->create(['scheduled_at' => now()->setTime(10, 0), 'visit_status' => VisitStatus::Arrived]);

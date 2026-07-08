@@ -75,8 +75,8 @@ class AppointmentsTable
                             ->displayFormat('d.m.Y'),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
-                        ->when($data['from'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('scheduled_at', '>=', $date))
-                        ->when($data['to'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('scheduled_at', '<=', $date))),
+                        ->when($data['from'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('scheduled_at', '>=', \Illuminate\Support\Carbon::parse($date)->format('Y-m-d')))
+                        ->when($data['to'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('scheduled_at', '<=', \Illuminate\Support\Carbon::parse($date)->format('Y-m-d')))),
                 TrashedFilter::make(),
             ])
             ->recordActions([

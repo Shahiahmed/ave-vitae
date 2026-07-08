@@ -82,7 +82,7 @@ class TodayAppointments extends Page implements HasTable
                             ->displayFormat('d.m.Y'),
                     ])
                     ->query(fn (Builder $query, array $data): Builder => $query
-                        ->when($data['date'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('scheduled_at', $date)))
+                        ->when($data['date'] ?? null, fn (Builder $q, $date): Builder => $q->whereDate('scheduled_at', \Illuminate\Support\Carbon::parse($date)->format('Y-m-d'))))
                     ->indicateUsing(function (array $data): ?string {
                         if (blank($data['date'] ?? null)) {
                             return null;
