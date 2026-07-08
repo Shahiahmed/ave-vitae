@@ -34,6 +34,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->brandName('Клиника')
+            ->brandLogo(fn (): string => asset('logo.svg'))
+            ->brandLogoHeight('2.5rem')
             ->login(Login::class)
             ->homeUrl(fn (): string => match (true) {
                 Auth::user()?->hasRole(Role::Doctor->value) => MyAppointments::getUrl(),
