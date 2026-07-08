@@ -4,7 +4,6 @@ namespace App\Filament\Pages;
 
 use App\Enums\Role;
 use App\Enums\VisitStatus;
-use App\Filament\Widgets\TodayAppointmentsStats;
 use App\Models\Appointment;
 use App\Support\AppointmentsExport;
 use BackedEnum;
@@ -57,10 +56,28 @@ class TodayAppointments extends Page implements HasTable
         ]) ?? false;
     }
 
-    protected function getHeaderWidgets(): array
+    /**
+     * Счётчики по текущей отфильтрованной выборке (без отдельного Livewire-виджета).
+     *
+     * @return array<string, int>
+     */
+    public function getStats(): array
     {
+        $base = $this->getFilteredSortedTableQuery();
+
+        if ($base === null) {
+            return ['total' => 0, 'arrived' => 0, 'waiting' => 0, 'no_show' => 0];
+        }
+
+        $countBy = fn (VisitStatus $status): int => (clone $base)
+            ->where('visit_status', $status->value)
+            ->count();
+
         return [
-            TodayAppointmentsStats::class,
+            'total' => (clone $base)->count(),
+            'arrived' => $countBy(VisitStatus::Arrived),
+            'waiting' => $countBy(VisitStatus::Waiting),
+            'no_show' => $countBy(VisitStatus::NoShow),
         ];
     }
 

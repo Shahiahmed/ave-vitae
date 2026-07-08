@@ -36,12 +36,24 @@ it('shows an appointment scheduled for today under the default date filter', fun
         ->assertSee('Бүгінгі Пациент');
 });
 
-it('renders the today page with its stats widget for a full day of visits', function () {
-    Appointment::factory()->create(['scheduled_at' => now()->setTime(9, 0), 'visit_status' => VisitStatus::Waiting]);
-    Appointment::factory()->create(['scheduled_at' => now()->setTime(10, 0), 'visit_status' => VisitStatus::Arrived]);
-    Appointment::factory()->create(['scheduled_at' => now()->setTime(11, 0), 'visit_status' => VisitStatus::NoShow]);
+it('renders inline stat counters on the today page', function () {
+    Appointment::factory()->create(['scheduled_at' => today()->setTime(9, 0), 'visit_status' => VisitStatus::Waiting]);
+    Appointment::factory()->create(['scheduled_at' => today()->setTime(10, 0), 'visit_status' => VisitStatus::Arrived]);
+    Appointment::factory()->create(['scheduled_at' => today()->setTime(11, 0), 'visit_status' => VisitStatus::NoShow]);
 
     $this->actingAs(userWithRole(Role::Reception))
         ->get(TodayAppointments::getUrl())
-        ->assertOk();
+        ->assertOk()
+        ->assertSee(__('clinic.today.total'))
+        ->assertSee(__('clinic.today.arrived'));
+});
+
+it('exports the today table via a livewire action without crashing', function () {
+    $this->actingAs(userWithRole(Role::Reception));
+    Appointment::factory()->create(['scheduled_at' => today()->setTime(9, 0)]);
+
+    Livewire\Livewire::test(TodayAppointments::class)
+        ->searchTable('7')
+        ->callTableAction('export')
+        ->assertFileDownloaded();
 });
