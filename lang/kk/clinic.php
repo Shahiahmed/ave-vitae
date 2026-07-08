@@ -51,6 +51,7 @@ return [
         'scheduled_at' => 'Қабылдау күні мен уақыты',
         'visit_status' => 'Визит күйі',
         'treatment_status' => 'Емдеу нәтижесі',
+        'treatment_amount' => 'Емдеу сомасы (₸)',
         'notes_kk' => 'Ескертпелер (қаз.)',
         'notes_zh' => 'Ескертпелер (қыт.)',
         'created_by' => 'Жасаған',

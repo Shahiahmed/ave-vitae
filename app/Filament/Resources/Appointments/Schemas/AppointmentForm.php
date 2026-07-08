@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Appointments\Schemas;
 
 use App\Enums\Role;
+use App\Enums\TreatmentStatus;
 use App\Enums\VisitStatus;
 use App\Models\Department;
 use App\Models\Patient;
@@ -115,6 +116,20 @@ class AppointmentForm
                 Section::make(__('clinic.appointment.section_notes'))
                     ->columns(2)
                     ->components([
+                        Select::make('treatment_status')
+                            ->label(__('clinic.appointment.treatment_status'))
+                            ->options(collect(TreatmentStatus::cases())
+                                ->mapWithKeys(fn (TreatmentStatus $s) => [$s->value => $s->getLabel()])
+                                ->all())
+                            ->live()
+                            ->visible(fn (string $operation): bool => $operation === 'edit'),
+                        TextInput::make('treatment_amount')
+                            ->label(__('clinic.appointment.treatment_amount'))
+                            ->numeric()
+                            ->minValue(0)
+                            ->suffix('₸')
+                            ->visible(fn (string $operation, Get $get): bool => $operation === 'edit'
+                                && $get('treatment_status') === TreatmentStatus::Treated->value),
                         Textarea::make('notes_kk')
                             ->label(__('clinic.appointment.notes_kk'))
                             ->rows(3),

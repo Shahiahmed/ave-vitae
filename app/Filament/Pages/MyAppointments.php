@@ -10,6 +10,8 @@ use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
@@ -84,6 +86,11 @@ class MyAppointments extends Page implements HasTable
                     ->label(__('clinic.appointment.treatment_status'))
                     ->badge()
                     ->placeholder('—'),
+                TextColumn::make('treatment_amount')
+                    ->label(__('clinic.appointment.treatment_amount'))
+                    ->numeric(decimalPlaces: 0)
+                    ->suffix(' ₸')
+                    ->placeholder('—'),
             ])
             ->recordActions([
                 Action::make('complete')
@@ -98,7 +105,15 @@ class MyAppointments extends Page implements HasTable
                             ->options(collect(TreatmentStatus::cases())
                                 ->mapWithKeys(fn (TreatmentStatus $s) => [$s->value => $s->getLabel()])
                                 ->all())
-                            ->required(),
+                            ->required()
+                            ->live(),
+                        TextInput::make('treatment_amount')
+                            ->label(__('clinic.appointment.treatment_amount'))
+                            ->numeric()
+                            ->minValue(0)
+                            ->suffix('₸')
+                            ->visible(fn (Get $get): bool => $get('treatment_status') === TreatmentStatus::Treated->value)
+                            ->required(fn (Get $get): bool => $get('treatment_status') === TreatmentStatus::Treated->value),
                         Textarea::make('notes_kk')
                             ->label(__('clinic.appointment.notes_kk'))
                             ->rows(3),
@@ -111,6 +126,7 @@ class MyAppointments extends Page implements HasTable
                             TreatmentStatus::from($data['treatment_status']),
                             $data['notes_kk'] ?? null,
                             $data['notes_zh'] ?? null,
+                            isset($data['treatment_amount']) ? (float) $data['treatment_amount'] : null,
                         );
 
                         Notification::make()

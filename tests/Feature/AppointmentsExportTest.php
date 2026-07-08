@@ -4,12 +4,12 @@ use App\Models\Appointment;
 use App\Support\AppointmentsExport;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-it('builds a 7-column row from an appointment', function () {
+it('builds an 8-column row from an appointment', function () {
     $appointment = Appointment::factory()->create();
 
     $row = AppointmentsExport::rowFor($appointment->load(['patient', 'department', 'doctor']));
 
-    expect($row)->toHaveCount(7)
+    expect($row)->toHaveCount(8)
         ->and($row[1])->toBe($appointment->patient->name_kk);
 });
 

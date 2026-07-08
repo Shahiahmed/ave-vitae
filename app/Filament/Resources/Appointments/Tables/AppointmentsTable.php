@@ -44,6 +44,12 @@ class AppointmentsTable
                     ->label(__('clinic.appointment.treatment_status'))
                     ->badge()
                     ->placeholder('—'),
+                TextColumn::make('treatment_amount')
+                    ->label(__('clinic.appointment.treatment_amount'))
+                    ->numeric(decimalPlaces: 0)
+                    ->suffix(' ₸')
+                    ->placeholder('—')
+                    ->toggleable(),
             ])
             ->defaultSort('scheduled_at')
             ->emptyStateHeading(__('clinic.empty.appointments'))

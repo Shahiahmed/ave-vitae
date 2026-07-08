@@ -51,6 +51,7 @@ return [
         'scheduled_at' => 'Дата и время приёма',
         'visit_status' => 'Статус визита',
         'treatment_status' => 'Результат лечения',
+        'treatment_amount' => 'Сумма лечения (₸)',
         'notes_kk' => 'Заметки (каз.)',
         'notes_zh' => 'Заметки (кит.)',
         'created_by' => 'Создал',

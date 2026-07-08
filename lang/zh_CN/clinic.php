@@ -51,6 +51,7 @@ return [
         'scheduled_at' => '就诊日期和时间',
         'visit_status' => '就诊状态',
         'treatment_status' => '治疗结果',
+        'treatment_amount' => '治疗金额 (₸)',
         'notes_kk' => '备注（哈萨克文）',
         'notes_zh' => '备注（中文）',
         'created_by' => '创建人',

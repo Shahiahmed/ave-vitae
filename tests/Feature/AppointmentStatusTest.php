@@ -67,3 +67,14 @@ it('refuses to complete an appointment that is not in progress', function () {
     expect(fn () => $appointment->complete(TreatmentStatus::Treated))
         ->toThrow(RuntimeException::class);
 });
+
+it('stores the treatment amount only when the patient was treated', function () {
+    $treated = Appointment::factory()->create(['visit_status' => VisitStatus::InProgress]);
+    $treated->complete(TreatmentStatus::Treated, amount: 15000);
+
+    $notTreated = Appointment::factory()->create(['visit_status' => VisitStatus::InProgress]);
+    $notTreated->complete(TreatmentStatus::NotTreated, amount: 15000);
+
+    expect((float) $treated->fresh()->treatment_amount)->toBe(15000.0)
+        ->and($notTreated->fresh()->treatment_amount)->toBeNull();
+});

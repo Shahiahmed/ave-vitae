@@ -25,6 +25,7 @@ class AppointmentsExport
             __('clinic.appointment.doctor'),
             __('clinic.appointment.visit_status'),
             __('clinic.appointment.treatment_status'),
+            __('clinic.appointment.treatment_amount'),
         ];
     }
 
@@ -43,6 +44,7 @@ class AppointmentsExport
             $appointment->doctor?->name ?? '—',
             $appointment->visit_status?->getLabel() ?? '',
             $appointment->treatment_status?->getLabel() ?? '—',
+            $appointment->treatment_amount !== null ? (string) $appointment->treatment_amount : '—',
         ];
     }
 

@@ -21,6 +21,7 @@ class Appointment extends Model
         'scheduled_at',
         'visit_status',
         'treatment_status',
+        'treatment_amount',
         'notes_kk',
         'notes_zh',
         'created_by',
@@ -32,6 +33,7 @@ class Appointment extends Model
             'scheduled_at' => 'datetime',
             'visit_status' => VisitStatus::class,
             'treatment_status' => TreatmentStatus::class,
+            'treatment_amount' => 'decimal:2',
         ];
     }
 
@@ -85,8 +87,12 @@ class Appointment extends Model
         $this->transitionTo(VisitStatus::NoShow);
     }
 
-    public function complete(TreatmentStatus $treatmentStatus, ?string $notesKk = null, ?string $notesZh = null): void
-    {
+    public function complete(
+        TreatmentStatus $treatmentStatus,
+        ?string $notesKk = null,
+        ?string $notesZh = null,
+        ?float $amount = null,
+    ): void {
         if (! $this->visit_status->canTransitionTo(VisitStatus::Completed)) {
             throw new RuntimeException(
                 "Нельзя завершить приём из статуса {$this->visit_status->value}"
@@ -95,6 +101,8 @@ class Appointment extends Model
 
         $this->visit_status = VisitStatus::Completed;
         $this->treatment_status = $treatmentStatus;
+        // Сумма имеет смысл только когда лечение проведено.
+        $this->treatment_amount = $treatmentStatus === TreatmentStatus::Treated ? $amount : null;
         $this->notes_kk = $notesKk;
         $this->notes_zh = $notesZh;
         $this->save();
