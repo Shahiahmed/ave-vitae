@@ -85,8 +85,8 @@ return [
         'title' => '仪表板',
         'today' => '今日预约',
         'today_desc' => '当天的就诊',
-        'arrived_week' => '本周已到诊',
-        'no_show_week' => '本周未到诊',
+        'arrived_month' => '本月到诊',
+        'treated_month' => '本月已治疗',
         'new_patients_month' => '本月新患者',
     ],
 
