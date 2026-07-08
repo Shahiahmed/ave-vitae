@@ -29,4 +29,7 @@ php artisan view:cache
 echo ">>> Права для www-data"
 chown -R www-data:www-data "$APP_DIR"
 
+echo ">>> Перезапуск PHP-FPM (сброс opcache)"
+systemctl reload php8.3-fpm || true
+
 echo ">>> Готово. Текущая версия: $(git rev-parse --short HEAD)"
