@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Appointments\Tables;
 
 use App\Enums\VisitStatus;
+use App\Filament\Actions\GenerateCertificateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -87,6 +88,7 @@ class AppointmentsTable
             ])
             ->recordActions([
                 EditAction::make(),
+                GenerateCertificateAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

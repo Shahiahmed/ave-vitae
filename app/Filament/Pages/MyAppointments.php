@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Enums\Role;
 use App\Enums\TreatmentStatus;
 use App\Enums\VisitStatus;
+use App\Filament\Actions\GenerateCertificateAction;
 use App\Models\Appointment;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -134,6 +135,7 @@ class MyAppointments extends Page implements HasTable
                             ->success()
                             ->send();
                     }),
+                GenerateCertificateAction::make(),
             ]);
     }
 }

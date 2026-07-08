@@ -96,4 +96,15 @@ return [
         'appointments' => 'Записей нет',
         'patients' => 'Пациентов пока нет',
     ],
+
+    'certificate' => [
+        'action' => 'Мед. справка (PDF)',
+        'heading' => 'Медицинская справка',
+        'period_from' => 'Дата осмотра — с',
+        'period_to' => 'по',
+        'complaints' => 'Жалобы',
+        'examination' => 'Результаты осмотра',
+        'diagnosis' => 'Диагноз',
+        'treatment' => 'Лечение и рекомендации',
+    ],
 ];

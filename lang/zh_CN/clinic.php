@@ -96,4 +96,15 @@ return [
         'appointments' => '没有预约',
         'patients' => '暂无患者',
     ],
+
+    'certificate' => [
+        'action' => '医疗证明 (PDF)',
+        'heading' => '医疗证明',
+        'period_from' => '就诊开始',
+        'period_to' => '就诊结束',
+        'complaints' => '主诉',
+        'examination' => '检查结果',
+        'diagnosis' => '诊断',
+        'treatment' => '治疗及建议',
+    ],
 ];
