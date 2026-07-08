@@ -35,6 +35,7 @@ class PatientForm
                         TextInput::make('phone')
                             ->label(__('clinic.patient.phone'))
                             ->tel()
+                            ->telRegex('/^[\d\s()+\-]+$/')
                             ->mask('+7 (999) 999-9999')
                             ->placeholder('+7 (___) ___-____')
                             ->required(),

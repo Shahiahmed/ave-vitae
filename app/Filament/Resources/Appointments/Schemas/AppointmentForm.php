@@ -56,6 +56,7 @@ class AppointmentForm
                                 TextInput::make('phone')
                                     ->label(__('clinic.patient.phone'))
                                     ->tel()
+                                    ->telRegex('/^[\d\s()+\-]+$/')
                                     ->mask('+7 (999) 999-9999')
                                     ->required(),
                                 TextInput::make('iin')
