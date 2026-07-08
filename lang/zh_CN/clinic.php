@@ -70,6 +70,7 @@ return [
         'arrived' => '已到达',
         'waiting' => '等待中',
         'no_show' => '未到诊',
+        'export' => '导出到 Excel',
     ],
 
     'my' => [

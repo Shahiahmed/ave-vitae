@@ -70,6 +70,7 @@ return [
         'arrived' => 'Келді',
         'waiting' => 'Күтілуде',
         'no_show' => 'Келмеді',
+        'export' => 'Excel-ге экспорттау',
     ],
 
     'my' => [

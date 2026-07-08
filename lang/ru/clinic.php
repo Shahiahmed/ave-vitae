@@ -70,6 +70,7 @@ return [
         'arrived' => 'Пришло',
         'waiting' => 'Ожидается',
         'no_show' => 'Не пришло',
+        'export' => 'Экспорт в Excel',
     ],
 
     'my' => [

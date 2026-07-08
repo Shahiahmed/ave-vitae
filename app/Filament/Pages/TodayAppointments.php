@@ -6,6 +6,7 @@ use App\Enums\Role;
 use App\Enums\VisitStatus;
 use App\Filament\Widgets\TodayAppointmentsStats;
 use App\Models\Appointment;
+use App\Support\AppointmentsExport;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DatePicker;
@@ -110,6 +111,16 @@ class TodayAppointments extends Page implements HasTable
                 TextColumn::make('visit_status')
                     ->label(__('clinic.appointment.visit_status'))
                     ->badge(),
+            ])
+            ->headerActions([
+                Action::make('export')
+                    ->label(__('clinic.today.export'))
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('gray')
+                    ->action(fn ($livewire): mixed => AppointmentsExport::download(
+                        $livewire->getFilteredSortedTableQuery() ?? Appointment::query(),
+                        'bugin-'.now()->format('Y-m-d_H-i').'.xlsx',
+                    )),
             ])
             ->recordActions([
                 Action::make('arrived')
