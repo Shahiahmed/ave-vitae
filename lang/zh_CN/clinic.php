@@ -100,6 +100,7 @@ return [
     'certificate' => [
         'action' => '医疗证明 (PDF)',
         'heading' => '医疗证明',
+        'submit' => '保存并下载 PDF',
         'period_from' => '就诊开始',
         'period_to' => '就诊结束',
         'complaints' => '主诉',

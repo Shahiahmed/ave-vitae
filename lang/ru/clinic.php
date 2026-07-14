@@ -100,6 +100,7 @@ return [
     'certificate' => [
         'action' => 'Мед. справка (PDF)',
         'heading' => 'Медицинская справка',
+        'submit' => 'Сохранить и скачать PDF',
         'period_from' => 'Дата осмотра — с',
         'period_to' => 'по',
         'complaints' => 'Жалобы',

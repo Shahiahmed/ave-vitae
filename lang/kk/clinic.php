@@ -100,6 +100,7 @@ return [
     'certificate' => [
         'action' => 'Медициналық анықтама (PDF)',
         'heading' => 'Медициналық анықтама',
+        'submit' => 'Сақтау және PDF жүктеу',
         'period_from' => 'Қаралу басы',
         'period_to' => 'Қаралу соңы',
         'complaints' => 'Шағымдары',

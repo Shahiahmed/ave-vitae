@@ -35,4 +35,9 @@ class Patient extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(MedicalCertificate::class);
+    }
 }
