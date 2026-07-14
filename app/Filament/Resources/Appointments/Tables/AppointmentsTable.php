@@ -51,7 +51,18 @@ class AppointmentsTable
                     ->suffix(' ₸')
                     ->placeholder('—')
                     ->toggleable(),
+                TextColumn::make('certificate')
+                    ->label(__('clinic.certificate.status'))
+                    ->badge()
+                    ->state(fn ($record): string => $record->certificate
+                        ? __('clinic.certificate.issued')
+                        : __('clinic.certificate.not_issued'))
+                    ->color(fn ($record): string => $record->certificate ? 'success' : 'gray')
+                    ->icon(fn ($record): string => $record->certificate
+                        ? 'heroicon-m-check-circle'
+                        : 'heroicon-m-minus-circle'),
             ])
+            ->modifyQueryUsing(fn (Builder $query): Builder => $query->with('certificate'))
             ->defaultSort('scheduled_at')
             ->emptyStateHeading(__('clinic.empty.appointments'))
             ->filters([

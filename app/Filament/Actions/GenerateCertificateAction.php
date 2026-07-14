@@ -22,7 +22,7 @@ class GenerateCertificateAction extends Action
 
         $this->label(__('clinic.certificate.action'))
             ->icon('heroicon-o-document-text')
-            ->color('gray')
+            ->color(fn (Appointment $record): string => $record->certificate ? 'success' : 'gray')
             ->modalHeading(__('clinic.certificate.heading'))
             ->modalWidth('2xl')
             ->modalSubmitActionLabel(__('clinic.certificate.submit'))

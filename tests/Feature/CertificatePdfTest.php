@@ -69,6 +69,29 @@ it('saves the certificate so the doctor does not refill it from scratch', functi
         ->and($certificate->fresh()->treatment)->toBe('Жаңартылған ем');
 });
 
+it('shows whether the certificate has already been issued', function () {
+    $doctor = userWithRole(Role::Doctor);
+    $appointment = Appointment::factory()->create([
+        'doctor_id' => $doctor->id,
+        'scheduled_at' => now(),
+    ]);
+
+    $this->actingAs($doctor)
+        ->get(\App\Filament\Pages\MyAppointments::getUrl())
+        ->assertSee(__('clinic.certificate.not_issued'));
+
+    \App\Models\MedicalCertificate::create([
+        'appointment_id' => $appointment->id,
+        'patient_id' => $appointment->patient_id,
+        'doctor_id' => $doctor->id,
+        'treatment' => 'Массаж',
+    ]);
+
+    $this->actingAs($doctor)
+        ->get(\App\Filament\Pages\MyAppointments::getUrl())
+        ->assertSee(__('clinic.certificate.issued'));
+});
+
 it('lets a doctor open the certificate action on their appointment', function () {
     $doctor = userWithRole(Role::Doctor);
     Appointment::factory()->create([

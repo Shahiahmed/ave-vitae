@@ -58,7 +58,7 @@ class MyAppointments extends Page implements HasTable
             ->query(
                 Appointment::query()
                     ->where('doctor_id', Auth::id())
-                    ->with(['patient', 'department'])
+                    ->with(['patient', 'department', 'certificate'])
             )
             ->defaultSort('scheduled_at')
             ->emptyStateHeading(__('clinic.empty.my'))
@@ -92,6 +92,16 @@ class MyAppointments extends Page implements HasTable
                     ->numeric(decimalPlaces: 0)
                     ->suffix(' ₸')
                     ->placeholder('—'),
+                TextColumn::make('certificate')
+                    ->label(__('clinic.certificate.status'))
+                    ->badge()
+                    ->state(fn (Appointment $record): string => $record->certificate
+                        ? __('clinic.certificate.issued')
+                        : __('clinic.certificate.not_issued'))
+                    ->color(fn (Appointment $record): string => $record->certificate ? 'success' : 'gray')
+                    ->icon(fn (Appointment $record): string => $record->certificate
+                        ? 'heroicon-m-check-circle'
+                        : 'heroicon-m-minus-circle'),
             ])
             ->recordActions([
                 Action::make('complete')
